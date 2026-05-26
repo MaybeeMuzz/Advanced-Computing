@@ -1,0 +1,799 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Advanced Computing</title>
+
+  <!-- GOOGLE FONT -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+
+  <!-- ICON -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"/>
+
+  <style>
+
+    *{
+      margin:0;
+      padding:0;
+      box-sizing:border-box;
+      scroll-behavior:smooth;
+    }
+
+    body{
+      background:#050816;
+      color:white;
+      font-family:'Poppins',sans-serif;
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:'';
+      position:fixed;
+      width:100%;
+      height:100%;
+      background:
+      radial-gradient(circle at 20% 20%, rgba(0,140,255,.15), transparent 20%),
+      radial-gradient(circle at 80% 50%, rgba(255,119,0,.12), transparent 20%),
+      radial-gradient(circle at 50% 80%, rgba(0,140,255,.10), transparent 20%);
+      z-index:-2;
+    }
+
+    .grid-bg{
+      position:fixed;
+      width:100%;
+      height:100%;
+      background-image:
+      linear-gradient(rgba(255,255,255,.03) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,.03) 1px, transparent 1px);
+      background-size:40px 40px;
+      z-index:-1;
+      animation:moveGrid 10s linear infinite;
+    }
+
+    @keyframes moveGrid{
+      from{
+        transform:translateY(0);
+      }
+      to{
+        transform:translateY(40px);
+      }
+    }
+
+    /* NAVBAR */
+    nav{
+      position:fixed;
+      top:0;
+      width:100%;
+      display:flex;
+      justify-content:space-between;
+      align-items:center;
+      padding:18px 8%;
+      backdrop-filter:blur(12px);
+      background:rgba(0,0,0,.35);
+      border-bottom:1px solid rgba(255,255,255,.08);
+      z-index:1000;
+    }
+
+    .logo{
+      font-family:'Orbitron',sans-serif;
+      font-size:1.3rem;
+      font-weight:700;
+    }
+
+    .logo span{
+      color:#0ea5ff;
+    }
+
+    nav ul{
+      display:flex;
+      gap:28px;
+      list-style:none;
+    }
+
+    nav ul li a{
+      text-decoration:none;
+      color:white;
+      transition:.3s;
+      font-size:.95rem;
+    }
+
+    nav ul li a:hover{
+      color:#0ea5ff;
+    }
+
+    /* LANGUAGE */
+    .lang-switch{
+      display:flex;
+      gap:10px;
+    }
+
+    .lang-btn{
+      border:none;
+      background:rgba(255,255,255,.08);
+      color:white;
+      padding:8px 14px;
+      border-radius:30px;
+      cursor:pointer;
+      transition:.3s;
+      font-size:.8rem;
+      font-weight:600;
+    }
+
+    .lang-btn:hover{
+      background:#0ea5ff;
+    }
+
+    /* HERO */
+    .hero{
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      text-align:center;
+      padding:120px 10%;
+    }
+
+    .hero-content img{
+      width:240px;
+      margin-bottom:30px;
+      filter:drop-shadow(0 0 25px rgba(0,140,255,.5));
+      animation:float 4s ease-in-out infinite;
+    }
+
+    @keyframes float{
+      0%,100%{
+        transform:translateY(0);
+      }
+      50%{
+        transform:translateY(-15px);
+      }
+    }
+
+    .hero h1{
+      font-size:4rem;
+      font-family:'Orbitron',sans-serif;
+      line-height:1.1;
+      margin-bottom:20px;
+    }
+
+    .hero h1 span{
+      color:#0ea5ff;
+    }
+
+    .hero p{
+      max-width:800px;
+      margin:auto;
+      line-height:1.9;
+      color:#d1d1d1;
+      margin-bottom:35px;
+    }
+
+    .btn{
+      display:inline-block;
+      padding:14px 34px;
+      border-radius:40px;
+      background:linear-gradient(90deg,#0ea5ff,#ff7b00);
+      color:white;
+      text-decoration:none;
+      font-weight:600;
+      transition:.4s;
+      box-shadow:0 0 20px rgba(0,140,255,.3);
+    }
+
+    .btn:hover{
+      transform:translateY(-5px);
+      box-shadow:0 0 30px rgba(0,140,255,.5);
+    }
+
+    /* SECTION */
+    section{
+      padding:100px 10%;
+    }
+
+    .section-title{
+      text-align:center;
+      margin-bottom:60px;
+    }
+
+    .section-title h2{
+      font-size:2.5rem;
+      font-family:'Orbitron',sans-serif;
+      margin-bottom:10px;
+    }
+
+    .section-title p{
+      color:#9ca3af;
+    }
+
+    /* GLASS */
+    .glass{
+      background:rgba(255,255,255,.05);
+      border:1px solid rgba(255,255,255,.08);
+      backdrop-filter:blur(12px);
+      border-radius:20px;
+      padding:30px;
+      transition:.4s;
+    }
+
+    .glass:hover{
+      transform:translateY(-8px);
+      border-color:#0ea5ff;
+      box-shadow:0 0 30px rgba(0,140,255,.15);
+    }
+
+    /* ABOUT */
+    .about,
+    .logo-philosophy{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:40px;
+      align-items:center;
+    }
+
+    .about img,
+    .logo-philosophy img{
+      width:100%;
+      max-width:380px;
+      display:block;
+      margin:auto;
+    }
+
+    .about-text p,
+    .culture p,
+    .founder-text p{
+      line-height:2;
+      color:#d1d1d1;
+    }
+
+    /* SERVICES */
+    .services{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(250px,1fr));
+      gap:25px;
+    }
+
+    .service-card i{
+      font-size:2rem;
+      color:#ff7b00;
+      margin-bottom:15px;
+    }
+
+    .service-card h3{
+      margin-bottom:12px;
+    }
+
+    .service-card p{
+      line-height:1.8;
+      color:#d1d1d1;
+    }
+
+    /* LOGO */
+    .logo-philosophy ul{
+      margin-top:20px;
+      line-height:2;
+      color:#d1d1d1;
+    }
+
+    /* FOUNDER */
+    .founder-container{
+      display:flex;
+      align-items:center;
+      gap:40px;
+      flex-wrap:wrap;
+    }
+
+    .founder-container img{
+      width:260px;
+      border-radius:20px;
+      border:2px solid rgba(255,255,255,.1);
+      box-shadow:0 0 30px rgba(0,140,255,.2);
+    }
+
+    .founder-text{
+      flex:1;
+    }
+
+    .founder-text h3{
+      font-size:2rem;
+      margin-bottom:10px;
+      font-family:'Orbitron',sans-serif;
+    }
+
+    .founder-text span{
+      color:#0ea5ff;
+      display:block;
+      margin-bottom:20px;
+      font-weight:600;
+    }
+
+    /* CONTACT */
+    .contact-box{
+      text-align:center;
+    }
+
+    .contact-box p{
+      margin:10px 0;
+      color:#d1d1d1;
+    }
+
+    .social{
+      margin-top:25px;
+    }
+
+    .social a{
+      display:inline-flex;
+      width:50px;
+      height:50px;
+      align-items:center;
+      justify-content:center;
+      border-radius:50%;
+      background:rgba(255,255,255,.05);
+      margin:0 8px;
+      color:white;
+      text-decoration:none;
+      transition:.3s;
+      font-size:1.2rem;
+    }
+
+    .social a:hover{
+      background:#0ea5ff;
+      transform:translateY(-5px);
+    }
+
+    footer{
+      text-align:center;
+      padding:30px;
+      border-top:1px solid rgba(255,255,255,.08);
+      color:#999;
+    }
+
+    @media(max-width:900px){
+
+      nav ul{
+        display:none;
+      }
+
+      .hero h1{
+        font-size:2.8rem;
+      }
+
+      .about,
+      .logo-philosophy{
+        grid-template-columns:1fr;
+      }
+
+      .founder-container{
+        justify-content:center;
+        text-align:center;
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="grid-bg"></div>
+
+<!-- NAVBAR -->
+<nav>
+
+  <div class="logo">
+    ADVANCED <span>COMPUTING</span>
+  </div>
+
+  <ul>
+    <li><a href="#about" data-id="navAbout">Tentang</a></li>
+    <li><a href="#vision" data-id="navVision">Visi</a></li>
+    <li><a href="#services" data-id="navServices">Layanan</a></li>
+    <li><a href="#culture" data-id="navCulture">Budaya</a></li>
+    <li><a href="#logo" data-id="navLogo">Filosofi</a></li>
+    <li><a href="#founder" data-id="navFounder">Pendiri</a></li>
+    <li><a href="#contact" data-id="navContact">Kontak</a></li>
+  </ul>
+
+  <div class="lang-switch">
+    <button class="lang-btn" onclick="setLanguage('id')">ID</button>
+    <button class="lang-btn" onclick="setLanguage('en')">EN</button>
+  </div>
+
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+
+  <div class="hero-content">
+
+    <img src="Logo_AC.png" alt="Advanced Computing">
+
+    <h1 data-id="heroTitle">
+      SMART <span>COMPUTING</span><br>
+      INTELLIGENT FUTURE
+    </h1>
+
+    <p data-id="heroDesc">
+      Advanced Computing adalah perusahaan teknologi modern
+      yang berfokus pada Artificial Intelligence,
+      Cloud Computing, Software Engineering,
+      dan solusi digital futuristik.
+    </p>
+
+    <a href="#about" class="btn" data-id="heroBtn">
+      Explore Company
+    </a>
+
+  </div>
+
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+
+  <div class="section-title">
+    <h2 data-id="aboutTitle">TENTANG PERUSAHAAN</h2>
+    <p data-id="aboutSub">Mengenal lebih dekat Advanced Computing</p>
+  </div>
+
+  <div class="about">
+
+    <div class="glass">
+      <img src="Logo_AC.png" alt="">
+    </div>
+
+    <div class="glass about-text">
+
+      <p data-id="aboutText1">
+        Advanced Computing (AC) adalah perusahaan teknologi
+        yang fokus pada pengembangan solusi IT modern,
+        Artificial Intelligence, Cloud Computing,
+        Cyber Security dan Software Engineering.
+      </p>
+
+      <br>
+
+      <p data-id="aboutText2">
+        Kami menghadirkan solusi digital inovatif
+        untuk membantu bisnis berkembang
+        secara efisien, aman dan futuristik.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- VISION -->
+<section id="vision">
+
+  <div class="section-title">
+    <h2 data-id="visionTitle">VISI & MISI</h2>
+    <p data-id="visionSub">Tujuan dan arah perusahaan</p>
+  </div>
+
+  <div class="services">
+
+    <div class="glass service-card">
+
+      <i class="fa-solid fa-eye"></i>
+
+      <h3 data-id="visionTextTitle">Visi</h3>
+
+      <p data-id="visionText">
+        Menjadi perusahaan teknologi terdepan
+        yang menghadirkan solusi IT inovatif,
+        aman dan adaptif untuk mendukung
+        transformasi digital masa depan.
+      </p>
+
+    </div>
+
+    <div class="glass service-card">
+
+      <i class="fa-solid fa-bullseye"></i>
+
+      <h3 data-id="missionTextTitle">Misi</h3>
+
+      <p data-id="missionText">
+        Mengembangkan layanan IT modern,
+        mendorong inovasi teknologi,
+        dan membangun solusi digital
+        yang berdampak positif bagi masyarakat.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- SERVICES -->
+<section id="services">
+
+  <div class="section-title">
+    <h2 data-id="serviceTitle">LAYANAN KAMI</h2>
+    <p data-id="serviceSub">Layanan teknologi modern</p>
+  </div>
+
+  <div class="services">
+
+    <div class="glass service-card">
+      <i class="fa-solid fa-brain"></i>
+
+      <h3>Artificial Intelligence</h3>
+
+      <p data-id="aiText">
+        Pengembangan AI dan Machine Learning
+        untuk analisis dan otomatisasi cerdas.
+      </p>
+    </div>
+
+    <div class="glass service-card">
+      <i class="fa-solid fa-cloud"></i>
+
+      <h3>Cloud Computing</h3>
+
+      <p data-id="cloudText">
+        Infrastruktur cloud modern
+        yang aman dan scalable.
+      </p>
+    </div>
+
+    <div class="glass service-card">
+      <i class="fa-solid fa-code"></i>
+
+      <h3>Software Engineering</h3>
+
+      <p data-id="softText">
+        Pembuatan aplikasi dan sistem digital modern.
+      </p>
+    </div>
+
+    <div class="glass service-card">
+      <i class="fa-solid fa-shield-halved"></i>
+
+      <h3>Cyber Security</h3>
+
+      <p data-id="cyberText">
+        Solusi keamanan digital
+        untuk menjaga integritas data.
+      </p>
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CULTURE -->
+<section id="culture">
+
+  <div class="section-title">
+    <h2 data-id="cultureTitle">BUDAYA PERUSAHAAN</h2>
+    <p data-id="cultureSub">Budaya kerja modern dan inovatif</p>
+  </div>
+
+  <div class="glass">
+
+    <p data-id="cultureText">
+      Kami membangun budaya kerja berbasis inovasi,
+      integritas, kolaborasi dan continuous learning
+      untuk menciptakan solusi digital yang berdampak nyata.
+    </p>
+
+  </div>
+
+</section>
+
+<!-- LOGO -->
+<section id="logo">
+
+  <div class="section-title">
+    <h2 data-id="logoTitle">FILOSOFI LOGO</h2>
+    <p data-id="logoSub">Makna identitas visual perusahaan</p>
+  </div>
+
+  <div class="logo-philosophy">
+
+    <div class="glass">
+      <img src="Logo_AC.png" alt="">
+    </div>
+
+    <div class="glass">
+
+      <h3 data-id="logoMeaningTitle">Makna Logo AC</h3>
+
+      <ul>
+        <li data-id="logo1"><b>A</b> melambangkan Advanced dan inovasi teknologi.</li>
+        <li data-id="logo2"><b>C</b> melambangkan Computing dan konektivitas digital.</li>
+        <li data-id="logo3"><b>Segitiga</b> melambangkan stabilitas dan perkembangan.</li>
+        <li data-id="logo4"><b>Biru</b> berarti teknologi dan profesionalisme.</li>
+        <li data-id="logo5"><b>Oranye</b> berarti energi dan kreativitas.</li>
+      </ul>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- FOUNDER -->
+<section id="founder">
+
+  <div class="section-title">
+    <h2 data-id="founderTitle">PENDIRI</h2>
+    <p data-id="founderSub">Pendiri Advanced Computing</p>
+  </div>
+
+  <div class="founder-container glass">
+
+    <img src="Founded.png" alt="Founder">
+
+    <div class="founder-text">
+
+      <h3>Muhammad Azka Aulia</h3>
+
+      <span data-id="founderRole">
+        Founder & CEO — Advanced Computing
+      </span>
+
+      <p data-id="founderText1">
+        Muhammad Azka Aulia adalah pendiri
+        Advanced Computing, perusahaan teknologi modern
+        yang berfokus pada Artificial Intelligence,
+        Cloud Computing, dan inovasi digital masa depan.
+      </p>
+
+      <p data-id="founderText2">
+        Dengan visi membangun teknologi yang lebih cerdas
+        dan futuristik, Advanced Computing resmi didirikan
+        pada 23 September 2025 sebagai langkah menuju
+        transformasi digital modern.
+      </p>
+
+    </div>
+
+  </div>
+
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+
+  <div class="section-title">
+    <h2 data-id="contactTitle">KONTAK</h2>
+    <p data-id="contactSub">
+      Terima kasih telah mengunjungi website kami
+    </p>
+  </div>
+
+  <div class="glass contact-box">
+
+    <p>Email : advancedcomputing25@gmail.com</p>
+    <p>Instagram : @advanced.computing_</p>
+    <p>Phone : +62 821-8471-8924</p>
+
+    <div class="social">
+
+      <a href="https://instagram.com/advanced.computing_" target="_blank">
+        <i class="fab fa-instagram"></i>
+      </a>
+
+      <a href="https://wa.me/6282184718924" target="_blank">
+        <i class="fab fa-whatsapp"></i>
+      </a>
+
+      <a href="https://www.linkedin.com/in/muhammad-azka-1204213ab/" target="_blank">
+        <i class="fab fa-linkedin"></i>
+      </a>
+
+      <a href="https://github.com/MaybeeMuzz" target="_blank">
+        <i class="fab fa-github"></i>
+      </a>
+
+    </div>
+
+  </div>
+
+</section>
+
+<footer>
+  © 2025 Advanced Computing — Smart Computing • Intelligent Future
+</footer>
+
+<!-- TRANSLATE -->
+<script>
+
+const translations = {
+
+  en: {
+
+    navAbout:"About",
+    navVision:"Vision",
+    navServices:"Services",
+    navCulture:"Culture",
+    navLogo:"Philosophy",
+    navFounder:"Founder",
+    navContact:"Contact",
+
+    heroTitle:"SMART <span>COMPUTING</span><br>INTELLIGENT FUTURE",
+    heroDesc:"Advanced Computing is a modern technology company focused on Artificial Intelligence, Cloud Computing, Software Engineering and futuristic digital solutions.",
+    heroBtn:"Explore Company",
+
+    aboutTitle:"ABOUT COMPANY",
+    aboutSub:"Get to know Advanced Computing",
+    aboutText1:"Advanced Computing (AC) is a technology company focused on modern IT solutions, Artificial Intelligence, Cloud Computing, Cyber Security and Software Engineering.",
+    aboutText2:"We provide innovative digital solutions to help businesses grow efficiently, securely and futuristically.",
+
+    visionTitle:"VISION & MISSION",
+    visionSub:"Company goals and direction",
+    visionTextTitle:"Vision",
+    missionTextTitle:"Mission",
+
+    visionText:"To become a leading technology company that provides innovative, secure and adaptive IT solutions for future digital transformation.",
+
+    missionText:"Developing modern IT services, encouraging technological innovation and building digital solutions that positively impact society.",
+
+    serviceTitle:"OUR SERVICES",
+    serviceSub:"Modern technology services",
+
+    aiText:"AI and Machine Learning development for intelligent automation and analytics.",
+    cloudText:"Modern cloud infrastructure that is secure and scalable.",
+    softText:"Development of modern applications and digital systems.",
+    cyberText:"Digital security solutions to protect data integrity.",
+
+    cultureTitle:"COMPANY CULTURE",
+    cultureSub:"Innovative modern work culture",
+    cultureText:"We build a work culture based on innovation, integrity, collaboration and continuous learning to create impactful digital solutions.",
+
+    logoTitle:"LOGO PHILOSOPHY",
+    logoSub:"Meaning behind our visual identity",
+    logoMeaningTitle:"Meaning of AC Logo",
+
+    logo1:"<b>A</b> represents Advanced and technological innovation.",
+    logo2:"<b>C</b> represents Computing and digital connectivity.",
+    logo3:"<b>Triangle</b> symbolizes stability and growth.",
+    logo4:"<b>Blue</b> symbolizes technology and professionalism.",
+    logo5:"<b>Orange</b> symbolizes energy and creativity.",
+
+    founderTitle:"FOUNDER",
+    founderSub:"Founder of Advanced Computing",
+    founderRole:"Founder & CEO — Advanced Computing",
+
+    founderText1:"Muhammad Azka Aulia is the founder of Advanced Computing, a modern technology company focused on Artificial Intelligence, Cloud Computing, and future digital innovation.",
+
+    founderText2:"With a vision to build smarter and more futuristic technology, Advanced Computing was officially established on September 23, 2025 as a step toward modern digital transformation.",
+
+    contactTitle:"CONTACT",
+    contactSub:"Thank you for visiting our website"
+
+  },
+
+  id: {}
+
+};
+
+function setLanguage(lang){
+
+  if(lang === "id"){
+    location.reload();
+    return;
+  }
+
+  document.querySelectorAll("[data-id]").forEach(el => {
+
+    const key = el.getAttribute("data-id");
+
+    if(translations[lang][key]){
+      el.innerHTML = translations[lang][key];
+    }
+
+  });
+
+}
+
+</script>
+
+</body>
+</html>
